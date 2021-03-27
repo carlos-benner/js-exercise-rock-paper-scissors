@@ -1,5 +1,16 @@
+:root {
+    --background-color: #c64756;
+    --rock-color: #184d47;
+    --rock-border-color: #133d38;
+    --paper-color: #96bb7c;
+    --paper-border-color: #75a355;
+    --scissors-color: #fad586;
+    --scissors-border-color: #f6bb3c;
+}
+
 body {
     margin: 0;
+    background: var(--background-color);
 }
 
 #content {
@@ -10,51 +21,79 @@ body {
     position: absolute;
 }
 
-.shapes {
+.shapes,
+.shape-selection {
     position: absolute;
     height: 100vh;
     width: 100vw;
-    background: #f7cac9;
-    display: grid;
-    grid-template-rows: 1fr 3fr 1fr;
-    grid-template-columns: 1fr 3fr 3fr 3fr 1fr;
-    column-gap: 5%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.shapes > a {
+.shapes > a,
+.shape-selection > a {
     color: white;
     text-decoration: none;
     display: grid;
     grid-template-rows: 1fr 4fr 2fr 1fr;
     grid-row: 2/3;
-    height: 100%;
-    width: 100%;
     border-radius: 20px;
-    border: 1px solid darkgray;
+    border: 1px solid black;
     justify-content: center;
     align-content: center;
+    padding: 100px;
 }
 
-.shapes > a > i {
+.shapes > a > *,
+.shape-selection > a > * {
+    pointer-events: none;
+}
+
+.shapes > a > i,
+.shape-selection > a > i {
     font-size: 200px;
     grid-row: 2/3;
 }
 
-.shapes > a > span {
+.shapes > a > span,
+.shape-selection > a > span {
     grid-row: 3/4;
     display: inline-block;
     text-align: center;
     font-size: 3em;
 }
-#rock {
+.rock {
     grid-column: 2/3;
-    background: #034f84;
+    background: var(--rock-color);
+    border-color: var(--rock-border-color);
 }
-#paper {
+.paper {
     grid-column: 3/4;
-    background: #92a8d1;
+    background: var(--paper-color);
+    border-color: var(--paper-border-color);
 }
-#scissors {
+.scissors {
     grid-column: 4/5;
-    background: #f7786b;
+    background: var(--scissors-color);
+    border-color: var(--scissors-border-color);
+}
+
+.fadeOut {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 300ms, opacity 300ms;
+}
+.fadeIn {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 0s, opacity 300ms;
+}
+
+.selected {
+    position: absolute;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    right: -1000px;
+    width: auto;
 }

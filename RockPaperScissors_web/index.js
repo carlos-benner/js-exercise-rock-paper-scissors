@@ -23,54 +23,50 @@ Ask if player wants to play again.
 Get player input on new game.
 Close game
 */
-const readline = require('readline');
 
-let rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
-
-let playerOptions = ['Rock', 'Paper', 'Scissors'];
+let playerOptions = ['rock', 'paper', 'scissors'];
 let winCombinations = {
-    0: [2],
-    1: [0],
-    2: [1],
+    rock: ['scissors'],
+    paper: ['rock'],
+    scissors: ['paper'],
 };
 let scoreboard = {
     D: 0,
     W: 0,
     L: 0,
 };
-function receivePlayerInput() {
-    rl.question(printPlayerOptions(), function (option) {
-        switch (parseInt(option)) {
-            case 1:
-            case 2:
-            case 3:
-                let opponentOption = getComputerOption();
-                console.log(
-                    `You selected ${
-                        playerOptions[option - 1]
-                    } and the AI selected ${playerOptions[opponentOption - 1]}`
-                );
-                storeGameOutcome(
-                    getGameOutcome(option - 1, opponentOption - 1)
-                );
-                break;
-            case 4:
-                console.log('\nBYE BYE !!!');
-                process.exit(0);
-                break;
-            default:
-                console.log('Incorrect option');
-                break;
-        }
-        showScoreBoard();
-        receivePlayerInput();
-    });
+let shapes = document.querySelectorAll('.shapes > a[data-shape]');
+shapes.forEach((shape) => {
+    shape.addEventListener('click', shapeSelected);
+});
+function shapeSelected(shapeElement) {
+    if (!shapeElement.target.attributes['data-shape']) return;
+    startRound(shapeElement.target.attributes['data-shape'].value);
 }
 
-function storeGameOutcome(outcome) {
+function startRound(shape) {
+    let opponentOption = getComputerOption();
+    //animateSelection(shape);
+    console.log(`You selected ${shape} and the AI selected ${opponentOption}`);
+    storeRoundOutcome(getRoundOutcome(shape, opponentOption));
+}
+
+function getComputerOption() {
+    return playerOptions[Math.floor(Math.random() * 3)];
+}
+
+function getRoundOutcome(player, opponent) {
+    if (player === opponent) {
+        return 'D';
+    }
+    return winCombinations[player].indexOf(opponent) < 0 ? 'L' : 'W';
+}
+
+function storeRoundOutcome(outcome) {
+    scoreboard[outcome]++;
+}
+
+function showRoundResult(outcome) {
     switch (outcome) {
         case 'D':
             console.log('DRAW GAME -_-');
@@ -85,50 +81,22 @@ function storeGameOutcome(outcome) {
             console.error('Something went horribly wrong');
             break;
     }
-    scoreboard[outcome]++;
-    console.log('');
 }
-
-function showScoreBoard() {
-    console.log(
-        `Won: ${scoreboard['W']} | Lost: ${scoreboard['L']} | Draw: ${scoreboard['D']} `
-    );
-    console.log('');
-}
-cd;
-function getGameOutcome(player, opponent) {
-    if (player === opponent) {
-        return 'D';
-    }
-    return winCombinations[player].indexOf(opponent) < 0 ? 'L' : 'W';
-}
-
-function getComputerOption() {
-    return Math.floor(Math.random() * 3) + 1;
-}
-
-function startGame() {
-    printInstructions();
-    receivePlayerInput();
-}
-
-function printInstructions() {
-    console.log('Rock Paper Scissors');
-    console.log('---------------------');
-    console.log('Rock beats Scissors');
-    console.log('Paper beats Rock');
-    console.log('Scissors beat Paper');
-    console.log('-------------------');
-    console.log('');
-}
-function printPlayerOptions() {
-    console.log('Select an option:');
-    console.log('[1] Rock');
-    console.log('[2] Paper');
-    console.log('[3] Scissors');
-    console.log('[4] Exit game');
-    console.log('');
-    return '';
-}
-
-startGame();
+//
+//function animateSelection(shape) {
+//    let originalSelectionCard = document.querySelector(
+//        `.shapes > a[data-shape='${shape}']`
+//    );
+//    let selectedCard = originalSelectionCard.cloneNode(true);
+//    selectedCard.setAttribute('id', 'selectedShape');
+//    let allCards = document.querySelectorAll(`.shapes > a`);
+//    allCards.forEach((card) => {
+//        card.classList.remove('fadeIn');
+//        card.classList.add('fadeOut');
+//    });
+//
+//    selectedCard.classList.add('selected');
+//
+//    document.querySelector('.shape-selection').appendChild(selectedCard);
+//}
+//

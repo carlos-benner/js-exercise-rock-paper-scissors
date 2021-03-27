@@ -14,17 +14,22 @@
     <body>
         <div id="content">
             <div class="score-board"></div>
+            <div class="shape-selection"></div>
             <div class="shapes">
-                <a id="rock" data-shape="rock" href="#"
-                    ><i class="far fa-hand-rock"></i><span>Rock</span></a
+                <a id="rock" class="rock fadeIn" data-shape="rock" href="#">
+                    <i class="far fa-hand-rock"></i><span>Rock</span>
+                </a>
+                <a id="paper" class="paper fadeIn" href="#" data-shape="paper">
+                    <i class="far fa-hand-paper"></i><span>Paper</span>
+                </a>
+                <a
+                    id="scissors"
+                    class="scissors fadeIn"
+                    href="#"
+                    data-shape="scissors"
                 >
-                <a id="paper" href="#" data-shape="paper"
-                    ><i class="far fa-hand-paper"></i><span>Paper</span></a
-                >
-                <a id="scissors" href="#" data-shape="scissors"
-                    ><i class="far fa-hand-scissors"></i
-                    ><span>Scissors</span></a
-                >
+                    <i class="far fa-hand-scissors"></i><span>Scissors</span>
+                </a>
             </div>
             <div class="result"></div>
         </div>
