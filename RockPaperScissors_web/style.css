@@ -33,16 +33,18 @@ body {
 
 .shapes > a,
 .shape-selection > a {
+    position: absolute;
     color: white;
     text-decoration: none;
     display: grid;
     grid-template-rows: 1fr 4fr 2fr 1fr;
-    grid-row: 2/3;
     border-radius: 20px;
-    border: 1px solid black;
     justify-content: center;
     align-content: center;
-    padding: 100px;
+    max-height: 200px;
+    width: 20%;
+    padding: 5%;
+    transition: left 1s ease 0.5s;
 }
 
 .shapes > a > *,
@@ -52,6 +54,7 @@ body {
 
 .shapes > a > i,
 .shape-selection > a > i {
+    transition: transform 0.8s ease-in-out 0.4s;
     font-size: 200px;
     grid-row: 2/3;
 }
@@ -64,17 +67,17 @@ body {
     font-size: 3em;
 }
 .rock {
-    grid-column: 2/3;
+    left: 2%;
     background: var(--rock-color);
     border-color: var(--rock-border-color);
 }
 .paper {
-    grid-column: 3/4;
+    left: 34%;
     background: var(--paper-color);
     border-color: var(--paper-border-color);
 }
 .scissors {
-    grid-column: 4/5;
+    left: 66%;
     background: var(--scissors-color);
     border-color: var(--scissors-border-color);
 }
@@ -91,9 +94,10 @@ body {
 }
 
 .selected {
-    position: absolute;
-    grid-column: 2/3;
-    grid-row: 2/3;
-    right: -1000px;
-    width: auto;
+    left: 2%;
+}
+.scissors.selected > i {
+    transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
 }

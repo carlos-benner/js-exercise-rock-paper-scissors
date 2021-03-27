@@ -46,7 +46,7 @@ function shapeSelected(shapeElement) {
 
 function startRound(shape) {
     let opponentOption = getComputerOption();
-    //animateSelection(shape);
+    animateSelection(shape);
     console.log(`You selected ${shape} and the AI selected ${opponentOption}`);
     storeRoundOutcome(getRoundOutcome(shape, opponentOption));
 }
@@ -82,21 +82,18 @@ function showRoundResult(outcome) {
             break;
     }
 }
-//
-//function animateSelection(shape) {
-//    let originalSelectionCard = document.querySelector(
-//        `.shapes > a[data-shape='${shape}']`
-//    );
-//    let selectedCard = originalSelectionCard.cloneNode(true);
-//    selectedCard.setAttribute('id', 'selectedShape');
-//    let allCards = document.querySelectorAll(`.shapes > a`);
-//    allCards.forEach((card) => {
-//        card.classList.remove('fadeIn');
-//        card.classList.add('fadeOut');
-//    });
-//
-//    selectedCard.classList.add('selected');
-//
-//    document.querySelector('.shape-selection').appendChild(selectedCard);
-//}
-//
+
+function animateSelection(shape) {
+    let selectedCard = document.querySelector(
+        `.shapes > a[data-shape='${shape}']`
+    );
+    selectedCard.classList.add('selected');
+
+    let nonSelectedCards = document.querySelectorAll(
+        `.shapes > a:not([data-shape='${shape}'])`
+    );
+    nonSelectedCards.forEach((card) => {
+        card.classList.remove('fadeIn');
+        card.classList.add('fadeOut');
+    });
+}
