@@ -21,8 +21,7 @@ body {
     position: absolute;
 }
 
-.shapes,
-.shape-selection {
+.shapes {
     position: absolute;
     height: 100vh;
     width: 100vw;
@@ -31,8 +30,7 @@ body {
     align-items: center;
 }
 
-.shapes > a,
-.shape-selection > a {
+.shapes > a {
     position: absolute;
     color: white;
     text-decoration: none;
@@ -44,42 +42,43 @@ body {
     max-height: 200px;
     width: 20%;
     padding: 5%;
-    transition: left 1s ease 0.5s;
+    transition: left 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.5s;
+    outline: none;
 }
 
-.shapes > a > *,
-.shape-selection > a > * {
+.shapes > a > * {
     pointer-events: none;
 }
 
-.shapes > a > i,
-.shape-selection > a > i {
-    transition: transform 0.8s ease-in-out 0.4s;
+.shapes > a > i {
     font-size: 200px;
     grid-row: 2/3;
 }
 
-.shapes > a > span,
-.shape-selection > a > span {
+.shapes > a > span {
     grid-row: 3/4;
     display: inline-block;
     text-align: center;
     font-size: 3em;
 }
 .rock {
-    left: 2%;
+    left: 2.5%;
     background: var(--rock-color);
     border-color: var(--rock-border-color);
 }
 .paper {
-    left: 34%;
+    left: 35%;
     background: var(--paper-color);
     border-color: var(--paper-border-color);
 }
 .scissors {
-    left: 66%;
+    left: 67.5%;
     background: var(--scissors-color);
     border-color: var(--scissors-border-color);
+}
+
+.scissors > i {
+    transform: rotate(90deg);
 }
 
 .fadeOut {
@@ -96,8 +95,10 @@ body {
 .selected {
     left: 2%;
 }
+a.selected > i {
+    transition: transform 0.5s ease-in 0.8s;
+    transform: rotate(90deg);
+}
 .scissors.selected > i {
     transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
 }
