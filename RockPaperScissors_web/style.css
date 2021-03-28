@@ -6,11 +6,13 @@
     --paper-border-color: #75a355;
     --scissors-color: #fad586;
     --scissors-border-color: #f6bb3c;
+    --focused-border-color: #6782db;
 }
 
 body {
     margin: 0;
     background: var(--background-color);
+    overflow: hidden;
 }
 
 #content {
@@ -21,7 +23,8 @@ body {
     position: absolute;
 }
 
-.shapes {
+.shapes,
+.ai-selection {
     position: absolute;
     height: 100vh;
     width: 100vw;
@@ -30,7 +33,8 @@ body {
     align-items: center;
 }
 
-.shapes > a {
+.shapes > a,
+.ai-selection > a {
     position: absolute;
     color: white;
     text-decoration: none;
@@ -45,36 +49,83 @@ body {
     transition: left 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.5s;
     outline: none;
 }
-
-.shapes > a > * {
+.shapes > a:focus {
+    border: 4px solid;
+    transform: translateX(-4px);
+}
+.shapes > a > *,
+.ai-selection > a > * {
     pointer-events: none;
 }
 
-.shapes > a > i {
+.shapes > a > i,
+.ai-selection > a > i {
     font-size: 200px;
     grid-row: 2/3;
 }
 
-.shapes > a > span {
+.shapes > a > span,
+.ai-selection > a > span {
     grid-row: 3/4;
     display: inline-block;
     text-align: center;
     font-size: 3em;
 }
+
+.ai-selection {
+    transform-origin: 50% 50%;
+    justify-content: start;
+    right: -150%;
+}
+.ai-selection > a {
+    transform-origin: 167% 50%;
+    pointer-events: none;
+}
+.ai-selection.spinning {
+    transition: right 1s linear 0.3s,
+        transform 7s cubic-bezier(0, 0.1, 0.5, 1.08) 0.3s;
+    right: -67.5%;
+}
+
+.ai-selection > a:nth-child(1) {
+    transform: rotate(0deg);
+}
+.ai-selection > a:nth-child(2) {
+    transform: rotate(60deg);
+}
+.ai-selection > a:nth-child(3) {
+    transform: rotate(120deg);
+}
+.ai-selection > a:nth-child(4) {
+    transform: rotate(180deg);
+}
+.ai-selection > a:nth-child(5) {
+    transform: rotate(240deg);
+}
+.ai-selection > a:nth-child(6) {
+    transform: rotate(300deg);
+}
+
 .rock {
-    left: 2.5%;
     background: var(--rock-color);
     border-color: var(--rock-border-color);
 }
+.shapes > .rock {
+    left: 2.5%;
+}
 .paper {
-    left: 35%;
     background: var(--paper-color);
     border-color: var(--paper-border-color);
 }
+.shapes > .paper {
+    left: 35%;
+}
 .scissors {
-    left: 67.5%;
     background: var(--scissors-color);
     border-color: var(--scissors-border-color);
+}
+.shapes > .scissors {
+    left: 67.5%;
 }
 
 .scissors > i {
@@ -82,18 +133,18 @@ body {
 }
 
 .fadeOut {
+    transition: visibility 0s linear 300ms, opacity 300ms !important;
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s linear 300ms, opacity 300ms;
 }
 .fadeIn {
+    transition: visibility 0s linear 0s, opacity 300ms !important;
     visibility: visible;
     opacity: 1;
-    transition: visibility 0s linear 0s, opacity 300ms;
 }
 
 .selected {
-    left: 2%;
+    left: 2.5% !important;
 }
 a.selected > i {
     transition: transform 0.5s ease-in 0.8s;

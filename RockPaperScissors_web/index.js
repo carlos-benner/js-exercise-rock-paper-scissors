@@ -35,6 +35,11 @@ let scoreboard = {
     W: 0,
     L: 0,
 };
+let wheelRotation = {
+    rock: 180,
+    paper: 120,
+    scissors: 60,
+};
 let shapes = document.querySelectorAll('.shapes > a[data-shape]');
 shapes.forEach((shape) => {
     shape.addEventListener('click', shapeSelected);
@@ -46,9 +51,10 @@ function shapeSelected(shapeElement) {
 
 function startRound(shape) {
     let opponentOption = getComputerOption();
-    animateSelection(shape);
+    animateSelection(shape, opponentOption);
     console.log(`You selected ${shape} and the AI selected ${opponentOption}`);
     storeRoundOutcome(getRoundOutcome(shape, opponentOption));
+    showRoundResult(getRoundOutcome(shape, opponentOption));
 }
 
 function getComputerOption() {
@@ -83,17 +89,25 @@ function showRoundResult(outcome) {
     }
 }
 
-function animateSelection(shape) {
-    let selectedCard = document.querySelector(
+function animateSelection(shape, opponent) {
+    const selectedCard = document.querySelector(
         `.shapes > a[data-shape='${shape}']`
     );
     selectedCard.classList.add('selected');
+    selectedCard.classList.remove('fadeIn');
 
-    let nonSelectedCards = document.querySelectorAll(
+    const nonSelectedCards = document.querySelectorAll(
         `.shapes > a:not([data-shape='${shape}'])`
     );
     nonSelectedCards.forEach((card) => {
         card.classList.remove('fadeIn');
         card.classList.add('fadeOut');
     });
+
+    const randomRotationsAngles = (1 + Math.floor(Math.random() * 1)) * 360;
+    let AISelectionWheel = document.querySelector(`.ai-selection`);
+    AISelectionWheel.style.transform = `rotate(${
+        wheelRotation[opponent] + randomRotationsAngles
+    }deg)`;
+    AISelectionWheel.classList.add('spinning');
 }
