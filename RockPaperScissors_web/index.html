@@ -13,7 +13,6 @@
     </head>
     <body>
         <div id="content">
-            <div class="score-board"></div>
             <div class="shapes">
                 <a id="rock" class="rock fadeIn" data-shape="rock" href="#">
                     <i class="far fa-hand-rock"></i><span>Rock</span>
@@ -53,7 +52,13 @@
                     <span>Scissors</span>
                 </a>
             </div>
-            <div class="result"></div>
+            <div class="round-result">
+                <h1 id="round-message">You Win!</h1>
+                <div class="score-board"></div>
+                <a href="" class="btn" onclick="location.reload();">
+                    Play Again?
+                </a>
+            </div>
         </div>
     </body>
 </html>

@@ -73,20 +73,23 @@ function storeRoundOutcome(outcome) {
 }
 
 function showRoundResult(outcome) {
+    const roundEndMessage = document.querySelector('#round-message');
     switch (outcome) {
         case 'D':
-            console.log('DRAW GAME -_-');
+            roundEndMessage.textContent = 'DRAW GAME -_-';
             break;
         case 'W':
-            console.log('You won ^_^');
+            roundEndMessage.textContent = 'You won ^_^';
             break;
         case 'L':
-            console.log('You lose TT_TT');
+            roundEndMessage.textContent = 'You lose TT_TT';
             break;
         default:
             console.error('Something went horribly wrong');
             break;
     }
+    const roundResultSegment = document.querySelector('.round-result');
+    roundResultSegment.classList.add('fadeIn');
 }
 
 function animateSelection(shape, opponent) {

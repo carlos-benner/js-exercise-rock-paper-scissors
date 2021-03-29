@@ -13,14 +13,25 @@ body {
     margin: 0;
     background: var(--background-color);
     overflow: hidden;
+    height: 100vh;
 }
 
 #content {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
-.score-board {
-    position: absolute;
+.round-result {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
 }
 
 .shapes,
@@ -138,7 +149,7 @@ body {
     opacity: 0;
 }
 .fadeIn {
-    transition: visibility 0s linear 0s, opacity 300ms !important;
+    transition: visibility 0s linear 0s, opacity 300ms linear 7s !important;
     visibility: visible;
     opacity: 1;
 }
